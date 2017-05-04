@@ -10,11 +10,11 @@ SortingClass::SortingClass(int si, int sm, int la) {
     int size = si;
     int smallest = sm;
     int largest = la;
-    int *randomArray;
-    randomArray = new int[si];
+    int *randArr;
+    randArr = new int[si];
 
     for (int i = 0; i < size; i++) {
-        randomArray[i] = rand() % (largest - smallest + 1) + smallest;
+        randArr[i] = rand() % (largest - smallest + 1) + smallest;
     }
 
 }
@@ -24,11 +24,11 @@ SortingClass::SortingClass(int si) {
     int size = si;
 
     smallest = 10;
-    int *inorderarr;
-    inorderarr = new int[si];
+    int *inOrderArr;
+    inOrderArr = new int[si];
 
     for (int i = 0; i < size; i++) {
-        inorderarr[i] = i + smallest;
+        inOrderArr[i] = i + smallest;
     }
 
 }
@@ -37,10 +37,10 @@ SortingClass::SortingClass() {
     //(2 pts) largest should be 5000, smallest should be 10
     int size = size;
     largest = 5000;
-    int *reverseOrderarr;
-    reverseOrderarr = new int[size];
+    int *revOrderArr;
+    revOrderArr = new int[size];
     for (int i = 0; i < size; i++) {
-        reverseOrderarr[i] = i + largest;
+        revOrderArr[i] = i + largest;
     }
 
 }
@@ -48,16 +48,23 @@ SortingClass::SortingClass() {
 int *SortingClass::copyArr(string s) {
     //(7 pts) based on s (which can be “rev”, “ord”, or “rand”, creates a new array,
     // copies over the old array, and returns the address of the new array
+    
+    //The new array
+    int * tempArray;
 
     if (s == "rev") {
-        new SortingClass();
+        tempArray = revOrderArr;
+        //do something
     } else if (s == "ord") {
-        new SortingClass(size);
+        tempArray = inOrderArr;
+        //do something
     } else if (s == "rand") {
-        new SortingClass(10, 10, 100);
+         tempArray = randArr;
+        //do something
         
 
     }
+    return tempArray;
     
 }
 
