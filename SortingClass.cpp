@@ -16,13 +16,17 @@ SortingClass::SortingClass(int si, int sm, int la) {
     for (int i = 0; i < size; i++) {
         randomArray[i] = rand() % (largest - smallest + 1) + smallest;
     }
+
 }
 
 SortingClass::SortingClass(int si) {
     //(2 pts) largest should be 5000, smallest should be 10
     int size = si;
+
+    smallest = 10;
     int *inorderarr;
     inorderarr = new int[si];
+
     for (int i = 0; i < size; i++) {
         inorderarr[i] = i + smallest;
     }
@@ -32,6 +36,7 @@ SortingClass::SortingClass(int si) {
 SortingClass::SortingClass() {
     //(2 pts) largest should be 5000, smallest should be 10
     int size = size;
+    largest = 5000;
     int *reverseOrderarr;
     reverseOrderarr = new int[size];
     for (int i = 0; i < size; i++) {
@@ -39,20 +44,28 @@ SortingClass::SortingClass() {
     }
 
 }
+
 int *SortingClass::copyArr(string s) {
     //(7 pts) based on s (which can be “rev”, “ord”, or “rand”, creates a new array,
     // copies over the old array, and returns the address of the new array
+
+    if (s == "rev") {
+        new SortingClass();
+    } else if (s == "ord") {
+        new SortingClass(size);
+    } else if (s == "rand") {
+        new SortingClass(10, 10, 100);
+        
+
+    }
+    
 }
 
 void SortingClass::selectionSort(int arr[]) {
     // (4 pts) Does what you’d think to the array passed into the method.
+    cout << "made it in selection sort" << endl;
     int tmp;
-
-    for (int i = 0; i < 5; i++)
-        cout << arr[i] << " ";
-
-    cout << endl;
-
+    cout << "made it in selection sort past first loop" << endl;
     for (int i = 0; i < 5 - 1; i++)
 
         for (int j = i + 1; j < 5; j++)
@@ -167,12 +180,18 @@ void SortingClass::bubbleSort(int arr[], int n) {
 }
 
 void SortingClass::compareSorts() {
+    cout << "made it to compareSorts" << endl;
     clock_t startTime = clock();
     double timePassed;
     //SELECTION SORT
+    cout << "made it before copyArr" << endl;
     int *arr = copyArr("rand");
+    cout << "made it after copyArr" << endl;
     startTime = clock();
+    cout << "made it just before selection sort" << endl;
+
     selectionSort(arr);
+    cout << "made it past selection sort" << endl;
     timePassed = clock() - startTime;
     for (int i = 0; i < size; i++) {
         cout << arr[i] << ", ";
