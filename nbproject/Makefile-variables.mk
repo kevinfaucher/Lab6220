@@ -9,19 +9,19 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=MinGW-Windows
 CND_ARTIFACT_DIR_Debug=dist/Debug/MinGW-Windows
-CND_ARTIFACT_NAME_Debug=220lab6
-CND_ARTIFACT_PATH_Debug=dist/Debug/MinGW-Windows/220lab6
+CND_ARTIFACT_NAME_Debug=lab6220
+CND_ARTIFACT_PATH_Debug=dist/Debug/MinGW-Windows/lab6220
 CND_PACKAGE_DIR_Debug=dist/Debug/MinGW-Windows/package
-CND_PACKAGE_NAME_Debug=220lab6.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/MinGW-Windows/package/220lab6.tar
+CND_PACKAGE_NAME_Debug=lab6220.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/MinGW-Windows/package/lab6220.tar
 # Release configuration
 CND_PLATFORM_Release=MinGW-Windows
 CND_ARTIFACT_DIR_Release=dist/Release/MinGW-Windows
-CND_ARTIFACT_NAME_Release=220lab6
-CND_ARTIFACT_PATH_Release=dist/Release/MinGW-Windows/220lab6
+CND_ARTIFACT_NAME_Release=lab6220
+CND_ARTIFACT_PATH_Release=dist/Release/MinGW-Windows/lab6220
 CND_PACKAGE_DIR_Release=dist/Release/MinGW-Windows/package
-CND_PACKAGE_NAME_Release=220lab6.tar
-CND_PACKAGE_PATH_Release=dist/Release/MinGW-Windows/package/220lab6.tar
+CND_PACKAGE_NAME_Release=lab6220.tar
+CND_PACKAGE_PATH_Release=dist/Release/MinGW-Windows/package/lab6220.tar
 #
 # include compiler specific variables
 #

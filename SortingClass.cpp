@@ -7,48 +7,57 @@
 using namespace std;
 
 SortingClass::SortingClass(int si, int sm, int la) {
-    int size = si;
-    int smallest = sm;
-    int largest = la;
+    size = si;
+    smallest = sm;
+    largest = la;
+
     int *randArr;
     randArr = new int[si];
-
+    
     for (int i = 0; i < size; i++) {
-        randArr[i] = rand() % (largest - smallest + 1) + smallest;
+        int randomNum = smallest + (rand() % (largest - smallest + 1));
+        randArr[i] = randomNum;
     }
+
 
 }
 
 SortingClass::SortingClass(int si) {
     //(2 pts) largest should be 5000, smallest should be 10
-    int size = si;
 
+    size = si;
     smallest = 10;
+    largest = 5000;
+
     int *inOrderArr;
     inOrderArr = new int[si];
-
     for (int i = 0; i < size; i++) {
         inOrderArr[i] = i + smallest;
+
     }
+
 
 }
 
 SortingClass::SortingClass() {
     //(2 pts) largest should be 5000, smallest should be 10
-    int size = size;
+    size = 15;
+    smallest = 10;
     largest = 5000;
+    
     int *revOrderArr;
     revOrderArr = new int[size];
+    
     for (int i = 0; i < size; i++) {
-        revOrderArr[i] = i + largest;
+        revOrderArr[i] = largest - i;
     }
-
+ 
 }
 
 int *SortingClass::copyArr(string s) {
     //(7 pts) based on s (which can be “rev”, “ord”, or “rand”, creates a new array,
     // copies over the old array, and returns the address of the new array
-    
+
     //The new array
     int * tempArray;
 
@@ -59,32 +68,35 @@ int *SortingClass::copyArr(string s) {
         tempArray = inOrderArr;
         //do something
     } else if (s == "rand") {
-         tempArray = randArr;
+        tempArray = randArr;
         //do something
-        
+
 
     }
     return tempArray;
-    
+
 }
 
 void SortingClass::selectionSort(int arr[]) {
     // (4 pts) Does what you’d think to the array passed into the method.
     cout << "made it in selection sort" << endl;
     int tmp;
-    cout << "made it in selection sort past first loop" << endl;
-    for (int i = 0; i < 5 - 1; i++)
+    cout << "made it in selection sort before first loop" << endl;
+    for (int i = 0; i < 5 - 1; i++) {
 
-        for (int j = i + 1; j < 5; j++)
+        for (int j = i + 1; j < 5; j++) {
 
             if (arr[i] > arr[j]) {
                 tmp = arr[i];
                 arr[i] = arr[j];
                 arr[j] = tmp;
             }
+        }
+    }
+    for (int i = 0; i < 5; i++) {
 
-    for (int i = 0; i < 5; i++)
         cout << arr[i] << " ";
+    }
 
     cout << endl;
 
@@ -208,7 +220,9 @@ void SortingClass::compareSorts() {
     cout << "Selection: rand " << timePassed << endl;
     arr = copyArr("rev");
     startTime = clock();
+    cout << "selection sort pass 2" << endl;
     selectionSort(arr);
+    cout << "selection sort pass 2 complete" << endl;
     timePassed = clock() - startTime;
     for (int i = 0; i < size; i++) {
         cout << arr[i] << ", ";
