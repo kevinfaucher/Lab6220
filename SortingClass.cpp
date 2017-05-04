@@ -11,32 +11,43 @@ SortingClass::SortingClass(int si, int sm, int la) {
     smallest = sm;
     largest = la;
 
-    int *randArr;
+
     randArr = new int[si];
     
+    //random array
     for (int i = 0; i < size; i++) {
         int randomNum = smallest + (rand() % (largest - smallest + 1));
         randArr[i] = randomNum;
     }
 
+    //in order array
+    inOrderArr = new int[si];
+    
+    for (int i = 0; i < size && i <= largest; i++) {
+        inOrderArr[i] = i + smallest;
 
+    }
+    
+    //Reverse order array
+    revOrderArr = new int[size];
+
+    for (int i = 0; i < size && i >= smallest; i++) {
+        revOrderArr[i] = largest - i;
+    }
 }
 
 SortingClass::SortingClass(int si) {
     //(2 pts) largest should be 5000, smallest should be 10
-
     size = si;
     smallest = 10;
     largest = 5000;
-
-    int *inOrderArr;
-    inOrderArr = new int[si];
-    for (int i = 0; i < size; i++) {
-        inOrderArr[i] = i + smallest;
-
-    }
-
-
+//  
+//    inOrderArr = new int[si];
+//    for (int i = 0; i < size && i <= largest; i++) {
+//        inOrderArr[i] = i + smallest;
+//
+//    }
+    
 }
 
 SortingClass::SortingClass() {
@@ -44,14 +55,13 @@ SortingClass::SortingClass() {
     size = 15;
     smallest = 10;
     largest = 5000;
-    
-    int *revOrderArr;
-    revOrderArr = new int[size];
-    
-    for (int i = 0; i < size; i++) {
-        revOrderArr[i] = largest - i;
-    }
- 
+
+//    revOrderArr = new int[size];
+//
+//    for (int i = 0; i < size && i >= smallest; i++) {
+//        revOrderArr[i] = largest - i;
+//    }
+
 }
 
 int *SortingClass::copyArr(string s) {
@@ -63,15 +73,13 @@ int *SortingClass::copyArr(string s) {
 
     if (s == "rev") {
         tempArray = revOrderArr;
-        //do something
+        
     } else if (s == "ord") {
         tempArray = inOrderArr;
-        //do something
+        
     } else if (s == "rand") {
         tempArray = randArr;
-        //do something
-
-
+  
     }
     return tempArray;
 
