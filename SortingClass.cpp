@@ -11,9 +11,8 @@ SortingClass::SortingClass(int si, int sm, int la) {
     smallest = sm;
     largest = la;
 
-
     randArr = new int[si];
-    
+
     //random array
     for (int i = 0; i < size; i++) {
         int randomNum = smallest + (rand() % (largest - smallest + 1));
@@ -22,12 +21,12 @@ SortingClass::SortingClass(int si, int sm, int la) {
 
     //in order array
     inOrderArr = new int[si];
-    
+
     for (int i = 0; i < size && i <= largest; i++) {
         inOrderArr[i] = i + smallest;
 
     }
-    
+
     //Reverse order array
     revOrderArr = new int[size];
 
@@ -41,13 +40,13 @@ SortingClass::SortingClass(int si) {
     size = si;
     smallest = 10;
     largest = 5000;
-//  
-//    inOrderArr = new int[si];
-//    for (int i = 0; i < size && i <= largest; i++) {
-//        inOrderArr[i] = i + smallest;
-//
-//    }
-    
+    //  
+    inOrderArr = new int[si];
+    for (int i = 0; i < size && i <= largest; i++) {
+        inOrderArr[i] = i + smallest;
+        //
+    }
+
 }
 
 SortingClass::SortingClass() {
@@ -56,11 +55,11 @@ SortingClass::SortingClass() {
     smallest = 10;
     largest = 5000;
 
-//    revOrderArr = new int[size];
-//
-//    for (int i = 0; i < size && i >= smallest; i++) {
-//        revOrderArr[i] = largest - i;
-//    }
+    revOrderArr = new int[size];
+    //
+    for (int i = 0; i < size && i >= smallest; i++) {
+        revOrderArr[i] = largest - i;
+    }
 
 }
 
@@ -73,13 +72,13 @@ int *SortingClass::copyArr(string s) {
 
     if (s == "rev") {
         tempArray = revOrderArr;
-        
+
     } else if (s == "ord") {
         tempArray = inOrderArr;
-        
+
     } else if (s == "rand") {
         tempArray = randArr;
-  
+
     }
     return tempArray;
 
@@ -144,10 +143,12 @@ int SortingClass::partition(int first, int last, int arr[]) {
     int i = first + 1, j = last;
     int tmp;
     while (i <= j) {
-        while (arr[i] < pivot)
+        while (arr[i] < pivot) {
             i++;
-        while (arr[j] > pivot)
+        }
+        while (arr[j] > pivot) {
             j--;
+        }
         if (i <= j) {
             tmp = arr[i];
             arr[i] = arr[j];
@@ -204,6 +205,81 @@ void SortingClass::bubbleSort(int arr[], int n) {
                 arr[j] = arr[j + 1];
                 arr[j + 1] = temp;
             }
+}
+
+void SortingClass::heapify(int arr[], int n, int i) {
+    int largest = i; // root = largest
+    int lchild = 2 * i + 1;
+    int rchild = 2 * i + 2;
+
+    // condition for if lchild > root
+    if (lchild < n && arr[lchild] > arr[largest])
+        largest = lchild;
+
+    // if rchild is largest
+    if (rchild < n && arr[rchild] > arr[largest])
+        largest = rchild;
+
+    // largest != root
+    if (largest != i) {
+        swap(arr[i], arr[largest]);
+
+        heapify(arr, n, largest);
+    }
+}
+
+void SortingClass::heapSort(int arr[], int n) {
+    // build the heap
+    for (int i = n / 2 - 1; i >= 0; i--)
+        heapify(arr, n, i);
+
+    // bubble up and remove root
+    for (int i = n - 1; i >= 0; i--) {
+        // move the root to the last index position since it is open
+        swap(arr[0], arr[i]);
+
+        heapify(arr, i, 0);
+    }
+}
+
+int SortingClass::getMaximum(int arr[], int n) {
+    int max = arr[0];
+    for (int i = 1; i < n; i++)
+        if (arr[i] > max)
+            max = arr[i];
+    return max;
+}
+
+void SortingClass::countSort(int arr[], int n, int sigDigit) {
+    int output[n]; //tmp final arr
+    int i, count[10] = {0};
+
+
+    for (i = 0; i < n; i++)
+        count[ (arr[i] / sigDigit) % 10 ]++;
+
+    //count contains position of the digit
+    for (i = 1; i < 10; i++)
+        count[i] += count[i - 1];
+
+    // create the output array in a loop
+    for (i = n - 1; i >= 0; i--) {
+        output[count[ (arr[i] / sigDigit) % 10 ] - 1] = arr[i];
+        count[ (arr[i] / sigDigit) % 10 ]--;
+    }
+
+    //creating sorted arr
+    for (i = 0; i < n; i++)
+        arr[i] = output[i];
+}
+
+void SortingClass::RadixSort(int arr[], int n) {
+    // find the max number
+    int max = getMaximum(arr, n);
+
+    //keeping track of the digits
+    for (int exp = 1; max / exp > 0; exp *= 10)
+        countSort(arr, n, exp);
 }
 
 void SortingClass::compareSorts() {
@@ -282,7 +358,7 @@ void SortingClass::compareSorts() {
     //QUICKSORT
     arr = copyArr("rand");
     startTime = clock();
-    quickSort(0, size, arr);
+    quickSort(0, size - 1, arr);
     timePassed = clock() - startTime;
     for (int i = 0; i < size; i++) {
         cout << arr[i] << ", ";
@@ -292,7 +368,7 @@ void SortingClass::compareSorts() {
     cout << "Quick: rand " << timePassed << endl;
     arr = copyArr("rev");
     startTime = clock();
-    quickSort(0, size, arr);
+    quickSort(0, size - 1, arr);
     timePassed = clock() - startTime;
     for (int i = 0; i < size; i++) {
         cout << arr[i] << ", ";
@@ -302,7 +378,7 @@ void SortingClass::compareSorts() {
     cout << "Quick: rev " << timePassed << endl;
     arr = copyArr("ord");
     startTime = clock();
-    quickSort(0, size, arr);
+    quickSort(0, size - 1, arr);
     timePassed = clock() - startTime;
     for (int i = 0; i < size; i++) {
         cout << arr[i] << ", ";
@@ -313,13 +389,15 @@ void SortingClass::compareSorts() {
     //MERGE
     arr = copyArr("rand");
     startTime = clock();
-    mergeSort(arr, 0, size - 1);
+    mergeSort(arr, 0, size);
     timePassed = clock() - startTime;
     for (int i = 0; i < size; i++) {
         cout << arr[i] << ", ";
     }
     cout << endl;
+    cout << "made it past quicksort ord" << endl;
     delete [] arr;
+    cout << "made it past quicksort" << endl;
     cout << "Merge: rand " << timePassed << endl;
     arr = copyArr("rev");
     startTime = clock();
@@ -341,4 +419,101 @@ void SortingClass::compareSorts() {
     cout << endl;
     delete [] arr;
     cout << "Merge: ord " << timePassed << endl;
+
+    //BUBBLESORT
+    arr = copyArr("rand");
+    startTime = clock();
+    bubbleSort(arr, size);
+    timePassed = clock() - startTime;
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << ", ";
+    }
+    cout << endl;
+    delete [] arr;
+    cout << "Bubble: rand " << timePassed << endl;
+    arr = copyArr("rev");
+    startTime = clock();
+    bubbleSort(arr, size);
+    timePassed = clock() - startTime;
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << ", ";
+    }
+    cout << endl;
+    delete [] arr;
+    cout << "Bubble: rev " << timePassed << endl;
+    arr = copyArr("ord");
+    startTime = clock();
+    bubbleSort(arr, size);
+    timePassed = clock() - startTime;
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << ", ";
+    }
+    cout << endl;
+    delete [] arr;
+    cout << "Bubble: ord " << timePassed << endl;
+
+    //HEAPSORT
+    arr = copyArr("rand");
+    startTime = clock();
+    heapSort(arr, size);
+    timePassed = clock() - startTime;
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << ", ";
+    }
+    cout << endl;
+    delete [] arr;
+    cout << "Heap: rand " << timePassed << endl;
+    arr = copyArr("rev");
+    startTime = clock();
+    heapSort(arr, size);
+    timePassed = clock() - startTime;
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << ", ";
+    }
+    cout << endl;
+    delete [] arr;
+    cout << "Heap: rev " << timePassed << endl;
+    arr = copyArr("ord");
+    startTime = clock();
+    heapSort(arr, size);
+    timePassed = clock() - startTime;
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << ", ";
+    }
+    cout << endl;
+    delete [] arr;
+    cout << "Heap: ord " << timePassed << endl;
+
+    //RADIX SORT
+    arr = copyArr("rand");
+    startTime = clock();
+    RadixSort(arr, size);
+    ;
+    timePassed = clock() - startTime;
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << ", ";
+    }
+    cout << endl;
+    delete [] arr;
+    cout << "Heap: rand " << timePassed << endl;
+    arr = copyArr("rev");
+    startTime = clock();
+    RadixSort(arr, size);
+    timePassed = clock() - startTime;
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << ", ";
+    }
+    cout << endl;
+    delete [] arr;
+    cout << "Heap: rev " << timePassed << endl;
+    arr = copyArr("ord");
+    startTime = clock();
+    RadixSort(arr, size);
+    timePassed = clock() - startTime;
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << ", ";
+    }
+    cout << endl;
+    delete [] arr;
+    cout << "Heap: ord " << timePassed << endl;
 }

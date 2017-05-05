@@ -50,5 +50,15 @@ public:
     // created a SortingClass object. This function compares the timing of the
     //different sorting methods when the arrays are in order, in reverse order,
     //and random.
+    void heapify(int arr[], int n, int i);
+    void heapSort(int arr[], int n);
+    int getMaximum(int arr[], int n);
+    void countSort(int arr[], int n, int exp);
+    void RadixSort(int arr[], int n);
+    // the function that should be called from main after
+    //you've
+    // created a SortingClass object. This function compares the timing of the
+    //different sorting methods when the arrays are in order, in reverse order,
+    //and random.
 };
 #endif /* SORTINGCLASS_HPP_ */

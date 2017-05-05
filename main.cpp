@@ -22,8 +22,8 @@ using namespace std;
  */
 int main() {
     SortingClass sortingClass(20,20,200);
-    SortingClass sortingClass1(20);
-    SortingClass sortingClass2;
+    //SortingClass sortingClass1(20);
+    //SortingClass sortingClass2;
     sortingClass.compareSorts();
     return 0;
 }
