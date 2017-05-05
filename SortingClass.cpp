@@ -160,40 +160,62 @@ int SortingClass::partition(int first, int last, int arr[]) {
     return p;
 }
 
-void SortingClass::merge(int arr[], int f, int m, int l) {
-    int n1 = m - f + 1;
-    int n2 = l - m;
-    int L[n1 + 1];
-    int R[n2 + 1];
-    for (int i = 1; i <= n1; i++) {
-        L[i] = arr[f + i - 1];
-    }
-    for (int j = 1; j <= n2; j++) {
-        R[j] = arr[m + j];
-    }
-    L[n1 + 1] = 999;
-    R[n2 + 1] = 999;
-    int i = 1, j = 1;
-    for (int k = f; k <= l; k++) {
-        if (L[i] <= R[j]) {
-            arr[k] = L[i];
-            i = i + 1;
+void merge(int arr[], int left, int m, int right) {
+    int firstI, secondI, mergedI;
+    int n1 = m - left + 1;
+    int n2 = right - m;
+
+    //creating temporary arrays
+    int Larr[n1];
+    int Rarr[n2];
+
+    //copy the data from the array to left and right arrays
+    for (firstI = 0; firstI < n1; firstI++)
+        Larr[firstI] = arr[left + firstI];
+    for (secondI = 0; secondI < n2; secondI++)
+        Rarr[secondI] = arr[m + 1 + secondI];
+
+    //merge the two sub arrays back together
+    firstI = 0; // first index of the first subarray
+    secondI = 0; // first index of the second subarray
+    mergedI = left; // first index of the merged subarrays
+    while (firstI < n1 && secondI < n2) {
+        if (Larr[firstI] <= Rarr[secondI]) {
+            arr[mergedI] = Larr[firstI];
+            firstI++;
         } else {
-            arr[k] = R[j];
-            j = j + 1;
+            arr[mergedI] = Rarr[secondI];
+            secondI++;
         }
+        mergedI++;
+    }
+
+    //copy what's left of Larr[]
+    while (firstI < n1) {
+        arr[mergedI] = Larr[firstI];
+        firstI++;
+        mergedI++;
+    }
+
+    //Copy what is left of Rarr
+    while (secondI < n2) {
+        arr[mergedI] = Rarr[secondI];
+        secondI++;
+        mergedI++;
     }
 }
 
-void SortingClass::mergeSort(int a[], int low, int hi) {
+void mergeSort(int arr[], int left, int right) {
     // (4 pts)keeps dividing the portion of the array between the low index and the hi
     // index by dividing by 2
-    int q;
-    if (low < hi) {
-        q = (low + hi) / 2;
-        mergeSort(a, low, q);
-        mergeSort(a, q + 1, hi);
-        merge(a, low, q, hi);
+    if (left < right) {
+        int m = left + (right - left) / 2;
+
+        //sort the two sub arrays, left array and the right array
+        mergeSort(arr, left, m);
+        mergeSort(arr, m + 1, right);
+
+        merge(arr, left, m, right);
     }
 }
 
