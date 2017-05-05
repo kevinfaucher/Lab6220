@@ -160,7 +160,7 @@ int SortingClass::partition(int first, int last, int arr[]) {
     return p;
 }
 
-void merge(int arr[], int left, int m, int right) {
+void SortingClass::merge(int arr[], int left, int m, int right) {
     int firstI, secondI, mergedI;
     int n1 = m - left + 1;
     int n2 = right - m;
@@ -205,7 +205,7 @@ void merge(int arr[], int left, int m, int right) {
     }
 }
 
-void mergeSort(int arr[], int left, int right) {
+void SortingClass::mergeSort(int arr[], int left, int right) {
     // (4 pts)keeps dividing the portion of the array between the low index and the hi
     // index by dividing by 2
     if (left < right) {
