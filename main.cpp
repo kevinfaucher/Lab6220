@@ -6,7 +6,7 @@
 
 /* 
  * File:   main.cpp
- * Author: Kevin
+ * Author: Kevin Faucher, Alexia Nebrao
  *
  * Created on April 21, 2017, 2:36 PM
  */
@@ -21,9 +21,9 @@ using namespace std;
  * 
  */
 int main() {
-    SortingClass sortingClass(20,20,200);
-    //SortingClass sortingClass1(20);
-    //SortingClass sortingClass2;
+    SortingClass sortingClass(50000,10,5000);
+    SortingClass sortingClass1(50000);
+    SortingClass sortingClass2;
     sortingClass.compareSorts();
     return 0;
 }

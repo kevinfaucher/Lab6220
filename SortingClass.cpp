@@ -51,7 +51,7 @@ SortingClass::SortingClass(int si) {
 
 SortingClass::SortingClass() {
     //(2 pts) largest should be 5000, smallest should be 10
-    size = 15;
+    size = 50000;
     smallest = 10;
     largest = 5000;
 
@@ -85,28 +85,17 @@ int *SortingClass::copyArr(string s) {
 }
 
 void SortingClass::selectionSort(int arr[]) {
-    // (4 pts) Does what you’d think to the array passed into the method.
-    cout << "made it in selection sort" << endl;
     int tmp;
-    cout << "made it in selection sort before first loop" << endl;
-    for (int i = 0; i < 5 - 1; i++) {
 
-        for (int j = i + 1; j < 5; j++) {
+    for (int i = 0; i < 5 - 1; i++)
+
+        for (int j = i + 1; j < 5; j++)
 
             if (arr[i] > arr[j]) {
                 tmp = arr[i];
                 arr[i] = arr[j];
                 arr[j] = tmp;
             }
-        }
-    }
-    for (int i = 0; i < 5; i++) {
-
-        cout << arr[i] << " ";
-    }
-
-    cout << endl;
-
 }
 
 void SortingClass::insertionSort(int arr[]) {
@@ -160,10 +149,10 @@ int SortingClass::partition(int first, int last, int arr[]) {
     return p;
 }
 
-void SortingClass::merge(int arr[], int left, int m, int right) {
+void SortingClass::merge(int arr[], int left, int m, int l) {
     int firstI, secondI, mergedI;
     int n1 = m - left + 1;
-    int n2 = right - m;
+    int n2 = l - m;
 
     //creating temporary arrays
     int Larr[n1];
@@ -205,17 +194,17 @@ void SortingClass::merge(int arr[], int left, int m, int right) {
     }
 }
 
-void SortingClass::mergeSort(int arr[], int left, int right) {
+void SortingClass::mergeSort(int arr[], int low, int high) {
     // (4 pts)keeps dividing the portion of the array between the low index and the hi
     // index by dividing by 2
-    if (left < right) {
-        int m = left + (right - left) / 2;
+    if (low < high) {
+        int m = low + (high - low) / 2;
 
         //sort the two sub arrays, left array and the right array
-        mergeSort(arr, left, m);
-        mergeSort(arr, m + 1, right);
+        mergeSort(arr, low, m);
+        mergeSort(arr, m + 1, high);
 
-        merge(arr, left, m, right);
+        merge(arr, low, m, high);
     }
 }
 
@@ -305,18 +294,18 @@ void SortingClass::RadixSort(int arr[], int n) {
 }
 
 void SortingClass::compareSorts() {
-    cout << "made it to compareSorts" << endl;
+
     clock_t startTime = clock();
     double timePassed;
     //SELECTION SORT
-    cout << "made it before copyArr" << endl;
+
     int *arr = copyArr("rand");
-    cout << "made it after copyArr" << endl;
+
     startTime = clock();
-    cout << "made it just before selection sort" << endl;
+
 
     selectionSort(arr);
-    cout << "made it past selection sort" << endl;
+
     timePassed = clock() - startTime;
     for (int i = 0; i < size; i++) {
         cout << arr[i] << ", ";
@@ -326,9 +315,9 @@ void SortingClass::compareSorts() {
     cout << "Selection: rand " << timePassed << endl;
     arr = copyArr("rev");
     startTime = clock();
-    cout << "selection sort pass 2" << endl;
+
     selectionSort(arr);
-    cout << "selection sort pass 2 complete" << endl;
+
     timePassed = clock() - startTime;
     for (int i = 0; i < size; i++) {
         cout << arr[i] << ", ";
@@ -417,9 +406,9 @@ void SortingClass::compareSorts() {
         cout << arr[i] << ", ";
     }
     cout << endl;
-    cout << "made it past quicksort ord" << endl;
+
     delete [] arr;
-    cout << "made it past quicksort" << endl;
+
     cout << "Merge: rand " << timePassed << endl;
     arr = copyArr("rev");
     startTime = clock();
